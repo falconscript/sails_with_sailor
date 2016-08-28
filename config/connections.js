@@ -40,13 +40,21 @@ module.exports.connections = {
   * Run: npm install sails-mysql                                             *
   *                                                                          *
   ***************************************************************************/
-  // someMysqlServer: {
-  //   adapter: 'sails-mysql',
-  //   host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
-  //   user: 'YOUR_MYSQL_USER', //optional
-  //   password: 'YOUR_MYSQL_PASSWORD', //optional
-  //   database: 'YOUR_MYSQL_DB' //optional
-  // },
+  
+  // Note: Passwords are stored in local.js due to version control protection
+  localhostMysqlServer: {
+    adapter: 'sails-mysql',
+    host: 'localhost',
+    user: 'root',
+    database: 'firstdb'
+  },
+  productionMysqlServer: {
+    adapter: 'sails-mysql',
+    host: process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost',
+    port: process.env.OPENSHIFT_MYSQL_DB_PORT || 3306,
+    user: process.env.OPENSHIFT_MYSQL_DB_USERNAME || 'root',
+    database: 'firstdb'
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -57,12 +65,12 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
   // someMongodbServer: {
-  //   adapter: 'sails-mongo',
-  //   host: 'localhost',
-  //   port: 27017,
-  //   user: 'username', //optional
-  //   password: 'password', //optional
-  //   database: 'your_mongo_db_name_here' //optional
+  //  adapter: 'sails-mongo',
+  //  host: 'localhost',
+  //  port: 27017,
+  //  user: 'username',
+  //  password: 'password',
+  //  database: 'your_mongo_db_name_here'
   // },
 
   /***************************************************************************
@@ -75,11 +83,11 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
   // somePostgresqlServer: {
-  //   adapter: 'sails-postgresql',
-  //   host: 'YOUR_POSTGRES_SERVER_HOSTNAME_OR_IP_ADDRESS',
-  //   user: 'YOUR_POSTGRES_USER', // optional
-  //   password: 'YOUR_POSTGRES_PASSWORD', // optional
-  //   database: 'YOUR_POSTGRES_DB' //optional
+  //  adapter: 'sails-postgresql',
+  //  host: 'YOUR_POSTGRES_SERVER_HOSTNAME_OR_IP_ADDRESS',
+  //  user: 'YOUR_POSTGRES_USER',
+  //  password: 'YOUR_POSTGRES_PASSWORD',
+  //  database: 'YOUR_POSTGRES_DB'
   // }
 
 

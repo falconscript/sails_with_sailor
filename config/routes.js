@@ -32,10 +32,17 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  }
+  /* Statics */
+  '/': 'HomeController.index',
+  '/termsAndContact': 'HomeController.termsAndContact',
 
+  /* Users Routes */
+  '/login': 'UserController.view_login_page',
+  '/view_registration_form': 'UserController.view_registration_form',
+  'POST /create_user': 'UserController.create_user',
+  '/check_unique_username': 'UserController.check_unique_username', // ajax only
+  '/view_profile': 'UserController.view_profile', // verify logged in first
+  '/login_or_out_action': 'UserController.login_or_out_action', // ugly that login can be GET
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

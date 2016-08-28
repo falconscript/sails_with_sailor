@@ -1,0 +1,139 @@
+html, body {
+	height:100%;
+	width:100%;
+}
+img {
+	border: 0px transparent solid;
+}
+
+html, body, td, th {
+	font-family: Helvetica, Arial, sans-serif;
+	color: #FFFFFF;
+	margin: 0px;
+}
+
+body {
+	background-position: Center;
+	background-attachment: fixed;
+	background: black;
+}
+p {
+	font-size: 0.8em;
+}
+/* anchor properties*/
+a:link {text-decoration: none; color:#FFFFFF}
+a:visited {text-decoration: none; color:#FFFFFF}
+a:hover {text-decoration: none; color:#FFFFFF}
+a:active {text-decoration: none; color:#FFFFFF}
+h2 {
+	padding:0;
+	line-height:14px;
+	margin:0;
+	font-size:14px;
+	text-align:left;
+	vertical-align:middle;
+	/*margin-bottom:4px;
+	margin-top:-1px;*/
+}
+h1 {
+	padding:0;
+	line-height:51px;
+	margin:0;
+	text-align:left;
+	vertical-align:bottom;
+	font-size:32px;
+	margin-bottom:-5px;
+	font-weight:bold;
+}
+ul {
+	list-style-type: none;
+	margin-left:0;
+	padding:0;
+}
+li {
+	margin-left: 0;
+}
+
+.foot {
+	font-size: 0.9em;
+}
+.btext {
+	text-align:center;
+	font-size:10px;
+}
+.btext2 {
+	text-align:left;
+	font-size:10px;
+}
+
+/* These classes are for the menu */
+
+/* end menu classes */
+
+
+.heavyCornerRound {
+	border-radius:15px;
+	-moz-border-radius:15px;
+	-webkit-border-radius:15px;
+}
+
+.BigButton {
+	display: block;
+	background:#024A68;
+	border-radius: 5px;
+	-moz-border-radius: 7px;
+	padding:6px 14px;
+	-webkit-box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+	box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+	margin-bottom: 34px;
+}
+a.BigButton:hover, #Developing a:hover, #ShowPrograms:hover {
+	background:#024A52 !important;
+	box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.55);
+	-webkit-box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.55);
+	-moz-box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.55);
+}
+.littleButton {
+	padding:6px 4px;
+	float:right;
+	clear:both
+}
+a .littleButton:hover {
+	text-decoration:underline !important;
+}
+
+.LightBlueContainer {
+	padding:4px;
+	padding-left:8px;
+	background:#0772A1;
+	border-radius:15px;
+	font-size:0.8em;
+	clear:both;
+	padding: 10px 8px;
+	margin-bottom: 34px;
+}
+/*   Provides animations! */
+.BigButton, #PCov, * {
+	-webkit-transition: all .25s ease-in-out;
+	-moz-transition: all .25s ease-in-out;
+	-o-transition: all .25s ease-in-out;
+	-ms-transition: all .25s ease-in-out;
+	transition: all .25s ease-in-out;
+}
+
+.clearfix {
+	clear:both;
+}
+
+.underlay{
+	bottom: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	top: 0 !important;
+	opacity: 0.5 !important;
+	filter: alpha(opacity=50) !important;
+	margin: -12px;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+}

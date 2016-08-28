@@ -1,0 +1,300 @@
+
+<script>
+document.title = "Register";
+
+// Make fixes due to bootstrap
+//$(".navbar .navbar-header").after('Register');
+//$(".navbar-brand").html("Register - Create Account");
+
+</script>
+
+
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/styles/reg-form-elements.css">
+<link rel="stylesheet" href="/styles/regStyles.css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<style>
+/* center reg form */
+.top-content .form-box {
+	padding-top: 0px;
+	margin:auto;
+	float:none;
+}
+/* Somewhat temporary fix for left brand */
+.navbar-brand {
+    color: #fff !important;
+}
+
+/* FIX NAV-BAR VIEWING */
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+	background:transparent;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+	color:white;
+}
+@media (min-width: 767px) {
+	.dropdown-menu li a { color: black !important; }
+}
+</style>
+
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text onRegistrationComplete" style="display:none">
+                    <h1><strong>Registration complete!</strong></h1>
+                    <div class="description">
+                    	<p style="font-size:21px;margin-bottom:33px">
+												You now have access to everything!
+											</p>
+
+											<button class="btn btn-large registrationDone" style="font-size:26px">Continue</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row registrationRow">
+            	<!--<div class="col-sm-6 phone">
+            		<img src="assets/img/iphone.png" alt="">
+            	</div>-->
+                <div class="col-sm-5 form-box">
+                	<div class="form-top">
+
+                		<div class="form-top-left">
+                			<h3>Register for full access</h3>
+											<div id="error"></div>
+                		</div>
+
+                		<div class="form-top-right">
+                			<i class="fa fa-pencil"></i>
+                		</div>
+
+                  </div>
+                  <div class="form-bottom">
+
+	                    <form role="form" action="/create_user" name="RegistrationForm" method="post" class="registration-form">
+
+                        <div class="form-group">
+                        	<label class="sr-only" for="UserName">Username</label>
+                        	<input type="text" maxlength="25" name="UserName" placeholder="Username..." class="form-username form-control">
+                        </div>
+
+                        <div class="form-group">
+                        	<label class="sr-only" for="EmailAddress">Email</label>
+                        	<input type="text" maxlength="50" name="EmailAddress" placeholder="Email..." class="form-email form-control">
+                        </div>
+
+                        <div class="form-group">
+                        	<label class="sr-only" for="Password">Password</label>
+                        	<input type="password" maxlength="25" name="Password" placeholder="Password..." class="form-password form-control">
+                        </div>
+
+                        <div class="form-group">
+                        	<label class="sr-only" for="ReenterPassword">Confirm Password</label>
+                        	<input type="password" maxlength="25" name="ReenterPassword" placeholder="Confirm Password..." class="form-confirmpassword form-control">
+                        </div>
+
+
+	                    	<div class="form-group">
+	                    		  <label class="sr-only" for="form-first-name">First name</label>
+	                        	<input maxlength="25" type="text" name="FirstName" placeholder="First name..." class="form-first-name form-control">
+	                      </div>
+	                      <div class="form-group">
+	                      	<label class="sr-only" for="LastName">Last name</label>
+	                      	<input maxlength="25" type="text" name="LastName" placeholder="Last name..." class="form-last-name form-control">
+	                      </div>
+
+												<div style="font-size:80%;padding:5px">By registering, you agree to the
+													<a href="/termsAndContact"><u>Terms and Conditions.</u></a>
+												</div>
+
+                        <button type="submit" onClick="javascript:return verify()" name="TheButton" class="btn">Sign up!</button>
+	                    </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Javascript -->
+<script src="/js/dependencies/jquery.backstretch.min.js"></script>
+<script src="/js/dependencies/retina-1.1.0.min.js"></script>
+
+<!--[if lt IE 10]>
+    <script src="/js/dependencies/placeholder.js"></script>
+<![endif]-->
+
+
+
+<!-- End template -->
+
+
+
+<script type="text/javascript">
+
+// Setup stuff
+jQuery(document).ready(function() {
+
+    /*
+        Fullscreen background
+    */
+    $.backstretch([
+	       "/img/regBackgrounds/1.jpg"
+	     , "/img/regBackgrounds/2.jpg"
+	     , "/img/regBackgrounds/3.jpg"
+	     ], {duration: 3000, fade: 750});
+
+    $('#top-navbar-1').on('shown.bs.collapse', function(){
+    	$.backstretch("resize");
+    });
+    $('#top-navbar-1').on('hidden.bs.collapse', function(){
+    	$.backstretch("resize");
+    });
+
+});
+
+
+/**
+ * Registration - Validation and navigation JS
+ */
+
+var formIsValid = false;
+
+// Clear erroneous messages/colors onkeydown
+$('.form-control').on('keydown', function clr() {
+	$('.form-control').css("color", "black");
+
+	$('#error').html("");
+});
+
+function AJAXcheckUserName() {
+
+  $.ajax({
+		url: "/check_unique_username",
+    method: "GET",
+    data: {
+        username: $('.form-username').val()
+    }
+	}).done(function(data, success, xhr) {
+		// "data" should be user count of this username
+		if (data == "0") {
+			return AJAXcreateUser(); // Try to create user!
+    } else if (data == "1") {
+        tellError("UserName is taken!");
+    } else {
+        alert("There's a problem! Data:\n" + data);
+    }
+	});
+}
+
+// Called upon front-end validating CHECKING OUT and creating user.
+function AJAXcreateUser () {
+	$.ajax({
+		url: "/create_user",
+		method: "POST",
+		dataType: "json",
+		data: $('.registration-form').serializeArray()
+	}).done(function(data, success, xhr) {
+		// parse if not parsed
+		if (typeof(data) != "object") {
+			try {
+				data = JSON.parse(data);
+			} catch(e) {
+				console.log("AJAXcreateUser -Failed to JSON parse:", data);
+			}
+		}
+
+		// check success
+		if (data.status == "ok") {
+			return onRegistrationComplete();
+		} else if (data.error == "E_VALIDATION" && Object.keys(data.invalidAttributes).length > 0) {
+			// VALIDATION ERROR. Just show first message
+			tellError(data.invalidAttributes[Object.keys(data.invalidAttributes)[0]][0].message);
+		} else {
+			tellError("UNKNOWN ERROR:" + data);
+		}
+	});
+}
+
+function onRegistrationComplete() {
+	$('.registrationRow').hide(500);
+	$('.onRegistrationComplete').show(1000);
+}
+
+// If document.referrer was a referral from my own domain, on reg completion, send 'em back
+$('.registrationDone').on('click', function (e) {
+	if (document.referrer && document.referrer.indexOf(document.domain) == 7
+	    || document.referrer.indexOf(document.domain) == 8) {
+		window.location = document.referrer;
+	} else {
+		window.location = document.domain;
+	}
+})
+
+//only checks email and password, and if username is blank
+function verify() {
+  formIsValid = true;
+  if ($('.form-email').val().length > 0) {
+		if ($('.form-email').val().indexOf(' ') >= 0) {
+			tellError("Emails can't have spaces.");
+		} else if ($('.form-email').val().indexOf('@') == -1) {
+			tellError("Please enter valid Email.");
+    }
+	} else {
+	    tellError("Please enter Email.");
+  }
+
+  if ( $('.form-password').val() == $('.form-confirmpassword').val() ) {
+      if ($('.form-password').val() < 3) {
+          tellError("Password is too short!");
+      }
+  } else {
+      tellError("Passwords don't match");
+  }
+
+  if ($('.form-username').val().length < 3) {
+      tellError("UserName is too short!")
+  }
+
+  if (formIsValid) {
+  	AJAXcheckUserName();
+  }
+
+	return false; // don't submit form
+}
+
+function tellError(errStr) {
+	$('#error').html(errStr);
+	$('#error').css("color", "#FF250F");
+	formIsValid = false;
+
+	if (errStr.indexOf('should be a email') != -1) {
+		$('.form-email').css("color", "#FF250F");
+		$('#error').html('Invalid email address.');
+	}
+
+	if(errStr.indexOf("Email", 0) >= 0 ) {
+		$('.form-email').css("color", "#FF250F");
+	}
+
+	if (errStr.indexOf("Pass") >= 0 ) {
+		$('.form-password').css("color", "#FF250F");
+		$('.form-confirmpassword').css("color", "#FF250F");
+	}
+  if( errStr.indexOf("User") >= 0) {
+      $('.form-username').css("color", "#FF250F");
+  }
+}
+</script>
